@@ -8,26 +8,18 @@ import { AppService } from './app.service';
 
 // Core Module
 import { TodoModule } from './todo/todo.module';
-import { ProductController } from './product/product.controller';
-import { ProductService } from './product/product.service';
-import { PostController } from './post/post.controller';
-import { PostService } from './post/post.service';
-
-// Schemas
-import { Product, ProductSchema } from './schemas/product.schema';
-import { Post, PostSchema } from './schemas/post.schema';
+import { ProductModule } from './product/product.module';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.DATABASE_URL),
-    MongooseModule.forFeature([
-      { name: Product.name, schema: ProductSchema },
-      { name: Post.name, schema: PostSchema },
-    ]),
     TodoModule,
+    ProductModule,
+    PostModule
   ],
-  controllers: [AppController, ProductController, PostController],
-  providers: [AppService, ProductService, PostService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
