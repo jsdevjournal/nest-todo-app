@@ -11,6 +11,15 @@ export class Product {
 
   @Prop()
   manufactureYear: number;
+
+  @Prop({ type: Number, select: false})
+  __v: number;
 }
 export type ProductDocument = Product & Document;
 export const ProductSchema = SchemaFactory.createForClass(Product);
+ProductSchema.method('toJSON', function () {
+  const { __v, _id, ...object } = this.toObject();
+  object.id = _id;
+  return object;
+});
+
